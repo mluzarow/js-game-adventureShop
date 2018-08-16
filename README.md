@@ -1,2 +1,2 @@
-# js-game-adventureShop
+# Adventure Shop
 Shop keeper game in javascript.
