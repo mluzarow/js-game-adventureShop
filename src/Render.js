@@ -1,18 +1,18 @@
 /**
- * Render class.
- */
+* Render class.
+*/
 class Render {
     /**
-     * Update the adventure.
-     */
-	function update () {}
+    * Update the adventure.
+    */
+    function update () {}
     /**
-     * Draw the current adventure.
-     */
+    * Draw the current adventure.
+    */
     function draw () {}
     /**
-     * Control the adventure.
-     */
+    * Control the adventure.
+    */
     function loop () {}
-    
+
 }
