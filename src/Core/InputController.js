@@ -1,6 +1,11 @@
+/**
+ * Input controller for gathering raw user input in an easily accessable way.
+ */
 class InputController {
+	/**
+	 * Constructor for input controller.
+	 */
 	constructor () {
-		console.log ('console');
 		/**
 		 * @type {object} dictionary of key binds. At some point this should be
 		 *                moved to some ini file and be customizable by the user.
@@ -39,13 +44,21 @@ class InputController {
 		this.mouseLeftDown = false;
 		this.mouseRightDown = false;
 		
+		// Bind JS event handlers
 		this.bindEvents ();
 	}
 	
+	/**
+	 * Binds event handlers for key events.
+	 */
 	bindEvents () {
-		window.addEventListener ("keydown", this.update.bind (this));
+		window.addEventListener ("keydown", this.updateKeyDown.bind (this));
+		window.addEventListener ("keyup", this.updateKeyUp.bind (this));
 	}
 	
+	/**
+	 * Resets all key states to off.
+	 */
 	resetKeys () {
 		this.up    = false;
 		this.down  = false;
@@ -54,18 +67,35 @@ class InputController {
 		this.space = false;
 	}
 	
-	update (e) {
-		// Reset key state
-		this.resetKeys ();
-		console.log (e);
-		if (e === undefined) { return; }
-		
+	/**
+	 * Event handler for the keydown event. Uses keybinds to alter key states
+	 * to active when a key is detected.
+	 * 
+	 * @param  {Event} e keydown event
+	 */
+	updateKeyDown (e) {
 		switch (e.which) {
 			case (this.keyBinds["up"]):    this.up    = true; break;
 			case (this.keyBinds["down"]):  this.down  = true; break;
 			case (this.keyBinds["left"]):  this.left  = true; break;
 			case (this.keyBinds["right"]): this.right = true; break;
 			case (this.keyBinds["space"]): this.space = true; break;
+		}
+	}
+	
+	/**
+	 * Event handler for the keyup event. Uses keybinds to alter key states to
+	 * inactive when a key is detected.
+	 * 
+	 * @param  {Event} e keyup event
+	 */
+	updateKeyUp (e) {
+		switch (e.which) {
+			case (this.keyBinds["up"]):    this.up    = false; break;
+			case (this.keyBinds["down"]):  this.down  = false; break;
+			case (this.keyBinds["left"]):  this.left  = false; break;
+			case (this.keyBinds["right"]): this.right = false; break;
+			case (this.keyBinds["space"]): this.space = false; break;
 		}
 	}
 }
