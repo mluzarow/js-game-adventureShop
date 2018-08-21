@@ -6,7 +6,6 @@ class Game {
 	 * Game boot entry point. 
 	 */
 	initialize () {
-		console.log ("init");
 		/**
 		 * @type {Element} canvas element
 		 */
@@ -29,14 +28,17 @@ class Game {
 	 * Game loop.
 	 */
 	gameLoop () {
-		this.input.update ();
-		
 		if (this.input.up === true) {
 			console.log ("UP");
 		}
-		
 		if (this.input.down === true) {
 			console.log ("DOWN");
+		}
+		if (this.input.left === true) {
+			console.log ("LEFT");
+		}
+		if (this.input.right === true) {
+			console.log ("RIGHT");
 		}
 		
 		// get input
