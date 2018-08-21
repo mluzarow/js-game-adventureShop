@@ -11,11 +11,11 @@ class InputController {
 		 *                moved to some ini file and be customizable by the user.
 		 */
 		this.keyBinds = {
-			"up" : 87, // W
-			"down" : 83, // S
-			"left" : 65, // A
+			"up"    : 87, // W
+			"down"  : 83, // S
+			"left"  : 65, // A
 			"right" : 68, // D
-			"space" : 32 // Space
+			"space" : 32  // Space
 		};
 		
 		/**
@@ -25,9 +25,9 @@ class InputController {
 		 * @var {bool} right right key pressed flag
 		 * @var {bool} space space key pressed flag
 		 */
-		this.up = false;
-		this.down = false;
-		this.left = false;
+		this.up    = false;
+		this.down  = false;
+		this.left  = false;
 		this.right = false;
 		this.space = false;
 		
@@ -41,7 +41,7 @@ class InputController {
 		 * @var {bool} mouseLeftDown  left mouse button held down flag
 		 * @var {bool} mouseRightDown right mouse button held down flag
 		 */
-		this.mouseLeftDown = false;
+		this.mouseLeftDown  = false;
 		this.mouseRightDown = false;
 		
 		// Bind JS event handlers
@@ -71,7 +71,7 @@ class InputController {
 	 * Event handler for the keydown event. Uses keybinds to alter key states
 	 * to active when a key is detected.
 	 * 
-	 * @param  {Event} e keydown event
+	 * @param {Event} e keydown event
 	 */
 	updateKeyDown (e) {
 		switch (e.which) {
@@ -87,7 +87,7 @@ class InputController {
 	 * Event handler for the keyup event. Uses keybinds to alter key states to
 	 * inactive when a key is detected.
 	 * 
-	 * @param  {Event} e keyup event
+	 * @param {Event} e keyup event
 	 */
 	updateKeyUp (e) {
 		switch (e.which) {

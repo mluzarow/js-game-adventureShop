@@ -21,7 +21,7 @@ class Game {
 		// make any sense?
 		
 		// Start the game loop
-		requestAnimationFrame(this.gameLoop.bind(this));
+		requestAnimationFrame (this.gameLoop.bind (this));
 	}
 	
 	/**
@@ -45,6 +45,6 @@ class Game {
 		// process stuff
 		// render stuff
 		
-		requestAnimationFrame(this.gameLoop.bind(this));
+		requestAnimationFrame (this.gameLoop.bind (this));
 	}
 }
