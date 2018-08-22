@@ -7,6 +7,6 @@
 		"jshint" : "^2.9.6"
 	},
 	"scripts" : {
-		"test" : "jshint game.js"
+		"test" : "jshint src/game.js"
 	}
 }
