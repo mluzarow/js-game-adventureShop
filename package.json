@@ -1,0 +1,12 @@
+{
+	"name" : "JSHINT",
+	"description" : "Javascript linter.",
+	"author" : "Wufflums",
+	"version" : "1.0.0",
+	"devDependencies" : {
+		"jshint" : "^2.9.6"
+	},
+	"scripts" : {
+		"test" : "jshint game.js"
+	}
+}
