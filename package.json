@@ -1,12 +1,12 @@
 {
-	"name" : "JSHINT",
-	"description" : "Javascript linter.",
+	"name" : "Tests",
+	"description" : "Game Tests.",
 	"author" : "Wufflums",
 	"version" : "1.0.0",
 	"devDependencies" : {
 		"jshint" : "^2.9.6"
 	},
 	"scripts" : {
-		"test" : "jshint src/Game.js"
+		"lint_jshint" : "jshint src/"
 	}
 }
