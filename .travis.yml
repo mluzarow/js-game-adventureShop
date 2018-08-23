@@ -3,3 +3,4 @@ node_js:
     - "node"
 scripts:
     - npm lint_jshint
+    - npm test
