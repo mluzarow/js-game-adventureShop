@@ -33,6 +33,13 @@ class Game {
 		if (this.input.left)  console.debug ("LEFT");
 		if (this.input.right) console.debug ("RIGHT");
 		
+		let mPos = this.input.getMousePosition ();
+		console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
+		
+		let mStat = this.input.getMouseStatus ();
+		if (mStat.left) console.debug ("LEFT MOUSE");
+		if (mStat.right) console.debug ("RIGHT MOUSE");
+		
 		// get input
 		// process stuff
 		// render stuff

@@ -57,8 +57,23 @@ class InputController {
 	 * Binds event handlers for key events.
 	 */
 	bindEvents () {
+		// Keyboard
 		window.addEventListener ("keydown", this.updateKeyDown.bind (this));
 		window.addEventListener ("keyup", this.updateKeyUp.bind (this));
+		
+		// Mouse
+		window.addEventListener (
+			"mousemove",
+			this.updateMousePosition.bind (this)
+		);
+		window.addEventListener (
+			"mousedown",
+			this.updateMouseButtonDown.bind (this)
+		);
+		window.addEventListener (
+			"mouseup",
+			this.updateMouseButtonUp.bind (this)
+		);
 	}
 	
 	/**
@@ -68,6 +83,46 @@ class InputController {
 	 */
 	getCanvas () {
 		return this.$canvas;
+	}
+	
+	/**
+	 * Gets mouse button on / off status.
+	 * 
+	 * @return {Object} dictionary containing the status of both the left and
+	 *                  right mouse button
+	 */
+	getMouseStatus () {
+		return {
+			left:  this.mouseButtonLeft,
+			right: this.mouseButtonRight
+		}
+	}
+	
+	/**
+	 * Gets the mouse position relative to the canvas, bound by the canvas.
+	 * 
+	 * @return {Object} dictionary of relative coordinates of mouse inside the
+	 *                  bounds of the canvas
+	 */
+	getMousePosition () {
+		let canvasRect = this.getCanvas ().getBoundingClientRect ();
+		
+		// Get relative position
+		let relX = this.mousePositionX - canvasRect.left;
+		let relY = this.mousePositionY - canvasRect.top;
+		
+		// Clamp so it cant be negative
+		relX = relX < 0 ? 0 : relX;
+		relY = relY < 0 ? 0 : relY;
+		
+		// Clamp so it cant be more` than the canvas bounds
+		relX = relX > canvasRect.width ? canvasRect.width : relX;
+		relY = relY > canvasRect.height ? canvasRect.height : relY;
+		
+		return {
+			x : relX,
+			y : relY
+		};
 	}
 	
 	/**
@@ -120,5 +175,42 @@ class InputController {
 			case (this.keyBinds["right"]): this.right = false; break;
 			case (this.keyBinds["space"]): this.space = false; break;
 		}
+	}
+	
+	/**
+	 * Event handler for the mouse button down event. Alters button states to
+	 * active when button press is detected.
+	 * 
+	 * @param {Event} e mousedown event
+	 */
+	updateMouseButtonDown (e) {
+		switch (e.button) {
+			case 0: this.mouseButtonLeft  = true; break;
+			case 2: this.mouseButtonRight = true; break;
+		}
+	}
+	
+	/**
+	 * Event handler for the mouse button up event. Alters button states to
+	 * active when button press is detected.
+	 * 
+	 * @param {Event} e mouseup event
+	 */
+	updateMouseButtonUp(e) {
+		switch (e.button) {
+			case 0: this.mouseButtonLeft  = false; break;
+			case 2: this.mouseButtonRight = false; break;
+		}
+	}
+	
+	/**
+	 * Evemt handler for the mouse move event. Updates raw mouse coordinates
+	 * on page.
+	 * 
+	 * @param  {Event} e mousemove event
+	 */
+	updateMousePosition (e) {
+		this.mousePositionX = e.clientX;
+		this.mousePositionY = e.clientY;
 	}
 }
