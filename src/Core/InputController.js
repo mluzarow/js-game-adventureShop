@@ -7,7 +7,7 @@ class InputController {
 	 */
 	constructor ($canvas) {
 		// Set up the canvas element reference
-		this.setCanvasReference ($canvas);
+		this.setCanvas ($canvas);
 		
 		/**
 		 * @type {object} dictionary of key binds. At some point this should be
