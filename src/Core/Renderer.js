@@ -9,7 +9,7 @@ class Renderer {
 	 */
 	function constructor ($canvas) {
 		/**
-		 * @type {Object} canvas context
+		 * @var {Context} context 2D context for canvas
 		 */
 		this.context;
 		
@@ -19,7 +19,7 @@ class Renderer {
 	/**
 	 * Gets the canvas context.
 	 * 
-	 * @type {Object} canvas context
+	 * @var {Context} context 2D context for canvas
 	 */
 	getContext () {
 		return this.context;
