@@ -5,7 +5,10 @@ class InputController {
 	/**
 	 * Constructor for input controller.
 	 */
-	constructor () {
+	constructor ($canvas) {
+		// Set up the canvas element reference
+		this.setCanvasReference ($canvas);
+		
 		/**
 		 * @type {object} dictionary of key binds. At some point this should be
 		 *                moved to some ini file and be customizable by the user.
@@ -44,6 +47,8 @@ class InputController {
 		this.mouseLeftDown  = false;
 		this.mouseRightDown = false;
 		
+		this.$canvas = $canvas;
+		
 		// Bind JS event handlers
 		this.bindEvents ();
 	}
@@ -57,6 +62,15 @@ class InputController {
 	}
 	
 	/**
+	 * Gets the canvas element reference.
+	 * 
+	 * @return {Element} canvas element reference
+	 */
+	getCanvas () {
+		return this.$canvas;
+	}
+	
+	/**
 	 * Resets all key states to off.
 	 */
 	resetKeys () {
@@ -65,6 +79,15 @@ class InputController {
 		this.left  = false;
 		this.right = false;
 		this.space = false;
+	}
+	
+	/**
+	 * Sets the canvas element reference.
+	 * 
+	 * @param {Element} $canvas canvas element
+	 */
+	setCanvas ($canvas) {
+		this.$canvas = $canvas;
 	}
 	
 	/**

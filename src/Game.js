@@ -14,7 +14,7 @@ class Game {
 		/**
 		 * @type {InputController} game user input controller
 		 */
-		this.input = new InputController ();
+		this.input = new InputController (this.$canvas);
 		
 		// Probably start the a seperate renderer class which contains the render
 		// loop frame locked to whatever. Split logic and render loops? Does that
