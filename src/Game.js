@@ -28,17 +28,18 @@ class Game {
 	 * Game loop.
 	 */
 	gameLoop () {
-		if (this.input.up)    console.debug ("UP");
-		if (this.input.down)  console.debug ("DOWN");
-		if (this.input.left)  console.debug ("LEFT");
-		if (this.input.right) console.debug ("RIGHT");
+		let kStat = this.input.getKeyboard ().getStatus ();
+		if (kStat.up)    console.debug ("UP");
+		if (kStat.down)  console.debug ("DOWN");
+		if (kStat.left)  console.debug ("LEFT");
+		if (kStat.right) console.debug ("RIGHT");
 		
-		let mPos = this.input.getMousePosition ();
-		console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
-		
-		let mStat = this.input.getMouseStatus ();
+		let mStat = this.input.getMouse ().getStatus ();
 		if (mStat.left) console.debug ("LEFT MOUSE");
 		if (mStat.right) console.debug ("RIGHT MOUSE");
+		
+		let mPos = this.input.getMouse ().getPosition ();
+		console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
 		// get input
 		// process stuff
