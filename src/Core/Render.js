@@ -1,7 +1,7 @@
 /**
 * Render class.
 */
-class Render {
+class Renderer {
     /**
     * Update the adventure.
     */
