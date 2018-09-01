@@ -28,18 +28,10 @@ class Game {
 	 * Game loop.
 	 */
 	gameLoop () {
-		if (this.input.up === true) {
-			console.log ("UP");
-		}
-		if (this.input.down === true) {
-			console.log ("DOWN");
-		}
-		if (this.input.left === true) {
-			console.log ("LEFT");
-		}
-		if (this.input.right === true) {
-			console.log ("RIGHT");
-		}
+		if (this.input.up)    console.debug ("UP");
+		if (this.input.down)  console.debug ("DOWN");
+		if (this.input.left)  console.debug ("LEFT");
+		if (this.input.right) console.debug ("RIGHT");
 		
 		// get input
 		// process stuff
