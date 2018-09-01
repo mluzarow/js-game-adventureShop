@@ -48,9 +48,9 @@ class Renderer {
 	/**
 	* Update the adventure.
 	*/
-	function update () {}
+	update () {}
 	/**
 	* Control the adventure.
 	*/
-	function loop () {}
+	loop () {}
 }
