@@ -16,6 +16,11 @@ class Game {
 		 */
 		this.input = new InputController (this.$canvas);
 		
+		/**
+		 * @type {Renderer} game renderer for output graphics through canvas
+		 */
+		this.renderer = new Renderer (this.$canvas, 50);
+		
 		// Probably start the a seperate renderer class which contains the render
 		// loop frame locked to whatever. Split logic and render loops? Does that
 		// make any sense?
