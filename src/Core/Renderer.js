@@ -10,7 +10,7 @@ class Renderer {
 	 *                          frequency at which the rendering method is
 	 *                          called.
 	 */
-	constructor ($canvas, maxFPS) {
+	constructor ($canvas, maxFPS, loopRef) {
 		/**
 		 * @var {Context} context 2D context for canvas
 		 */
@@ -23,23 +23,88 @@ class Renderer {
 		this.height;
 		this.width;
 		
+		/**
+		 * @type {Array} queue of renderables to be rendered next frame
+		 */
+		this.queue = [];
+		
 		this.setContext ($canvas);
 		
 		// Start the frame-locked loop
-		setInterval (this.draw.bind (this), 1000 / maxFPS);
+		setInterval (loopRef, 1000 / maxFPS);
+	}
+	
+	/**
+	 * Appends a new renderable to the end of the queue for next frame.
+	 * 
+	 *  @param {Renderable} item a renderable item
+	 */
+	appendQueue (item) {
+		this.queue.push (item);
+	}
+	
+	/**
+	 * Clears the current frames renderable queue.
+	 */
+	clearQueue () {
+		this.queue = [];
 	}
 	
 	/**
 	* Draw the current adventure.
 	*/
 	draw () {
-		this.getContext ().fillStyle = 'green';
-		this.getContext ().fillRect(
-			0,
-			0,
-			this.getWidth (),
-			this.getHeight ()
+		let queue = this.getQueue ();
+		
+		for (let i = 0; i < queue.length; i++) {
+			this.drawItem (queue[i]);
+		}
+		
+		this.clearQueue ();
+	}
+	
+	/**
+	 * Decides what type of renderable to item is and calls the correct method.
+	 * 
+	 * @param {Renderable} item a renderable item
+	 */
+	drawItem (item) {
+		switch (item.getType ()) {
+			case "texture": this.drawItemTexture (item); break;
+			case "text" : this.drawItemText (item); break;
+			case "color" : this.drawItemColor (item); break;
+		}
+	}
+	
+	drawItemColor (item) {
+		this.getContext ().fillStyle = item.getColor ();
+		
+		this.getContext ().fillRect (
+			item.getOrigin ().x,
+			item.getOrigin ().y,
+			item.getEnd ().x,
+			item.getEnd ().y
 		);
+	}
+	
+	drawItemText (item) {
+		this.getContext ().fillStyle = item.getColor ();
+		this.getContext ().font = item.getFont ();
+		this.getContext ().fillText (
+			item.getText (),
+			item.getOrigin ().x,
+			item.getOrigin ().y
+		);
+	}
+	
+	drawItemTexture (item) {
+		this.getContext ().drawImage (
+			item.getImage (),
+			item.getOrigin ().x,
+			item.getOrigin ().y,
+			item.getEnd ().x,
+			item.getEnd ().y
+		)
 	}
 	
 	/**
@@ -58,6 +123,15 @@ class Renderer {
 	 */
 	getHeight () {
 		return this.getContext ().canvas.height;
+	}
+	
+	/**
+	 * Gets the frame's render queue.
+	 * 
+	 * @return {Array} renderable queue
+	 */
+	getQueue () {
+		return this.queue;
 	}
 	
 	/**

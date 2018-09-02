@@ -19,7 +19,7 @@ class Game {
 		/**
 		 * @type {Renderer} game renderer for output graphics through canvas
 		 */
-		this.renderer = new Renderer (this.$canvas, 50);
+		this.renderer = new Renderer (this.$canvas, 50, this.frameLockedLoop.bind (this));
 		
 		// Probably start the a seperate renderer class which contains the render
 		// loop frame locked to whatever. Split logic and render loops? Does that
@@ -29,22 +29,36 @@ class Game {
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}
 	
+	frameLockedLoop () {
+		this.renderer.appendQueue (
+			new RenderableColor (
+				"blue",
+				{x: this.renderer.getWidth (), y: this.renderer.getHeight ()},
+				{x: 0, y: 0}
+			)
+		);
+		
+		this.renderer.draw ();
+	}
+	
 	/**
 	 * Game loop.
 	 */
 	gameLoop () {
-		let kStat = this.input.getKeyboard ().getStatus ();
-		if (kStat.up)    console.debug ("UP");
-		if (kStat.down)  console.debug ("DOWN");
-		if (kStat.left)  console.debug ("LEFT");
-		if (kStat.right) console.debug ("RIGHT");
+		// let kStat = this.input.getKeyboard ().getStatus ();
+		// if (kStat.up)    console.debug ("UP");
+		// if (kStat.down)  console.debug ("DOWN");
+		// if (kStat.left)  console.debug ("LEFT");
+		// if (kStat.right) console.debug ("RIGHT");
+		// 
+		// let mStat = this.input.getMouse ().getStatus ();
+		// if (mStat.left) console.debug ("LEFT MOUSE");
+		// if (mStat.right) console.debug ("RIGHT MOUSE");
+		// 
+		// let mPos = this.input.getMouse ().getPosition ();
+		// console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
-		let mStat = this.input.getMouse ().getStatus ();
-		if (mStat.left) console.debug ("LEFT MOUSE");
-		if (mStat.right) console.debug ("RIGHT MOUSE");
 		
-		let mPos = this.input.getMouse ().getPosition ();
-		console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
 		// get input
 		// process stuff
