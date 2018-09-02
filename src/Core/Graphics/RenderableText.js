@@ -8,15 +8,18 @@ class RenderableText {
 	 * @param {String} color  text color
 	 * @param {String} font   font preset
 	 * @param {Object} origin text anchor point in the form {x, y}
+	 * @param {String} text   text to be shown
 	 */
-	constructor (color, font, origin) {
+	constructor (color, font, origin, text) {
 		this.color;
 		this.font;
 		this.origin;
+		this.text;
 		
 		this.setColor (color);
 		this.setFont (font);
 		this.setOrigin (origin);
+		this.setText (text);
 	}
 	
 	/**
@@ -44,6 +47,15 @@ class RenderableText {
 	 */
 	getOrigin () {
 		return this.origin;
+	}
+	
+	/**
+	 * Gets the text to be rendered.
+	 * 
+	 * @return {String} text to be shown
+	 */
+	getText () {
+		return this.text;
 	}
 	
 	/**
@@ -80,5 +92,14 @@ class RenderableText {
 	 */
 	setOrigin (origin) {
 		this.origin = origin;
+	}
+	
+	/**
+	 * Sets the text to be rendered.
+	 * 
+	 * @param {String} text text to be shown
+	 */
+	setText (text) {
+		this.text = text;
 	}
 }
