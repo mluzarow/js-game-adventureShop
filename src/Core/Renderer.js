@@ -5,10 +5,11 @@ class Renderer {
 	/**
 	 * Constructor for renderer.
 	 * 
-	 * @param {Element} $canvas canvas element
-	 * @param {Int}     maxFPS  FPS cap for rendering. This also controls
-	 *                          frequency at which the rendering method is
-	 *                          called.
+	 * @param {Element}  $canvas canvas element
+	 * @param {Int}      maxFPS  FPS cap for rendering. This also controls
+	 *                           frequency at which the rendering method is
+	 *                           called.
+	 * @param {Function} loopRef frame loacked update loop
 	 */
 	constructor ($canvas, maxFPS, loopRef) {
 		/**
@@ -76,6 +77,11 @@ class Renderer {
 		}
 	}
 	
+	/**
+	 * Draws a color renderable.
+	 * 
+	 * @param  {Renderable} item renderable data
+	 */
 	drawItemColor (item) {
 		this.getContext ().fillStyle = item.getColor ();
 		
@@ -87,6 +93,11 @@ class Renderer {
 		);
 	}
 	
+	/**
+	 * Draws a text renderable.
+	 * 
+	 * @param  {Renderable} item renderable data
+	 */
 	drawItemText (item) {
 		this.getContext ().fillStyle = item.getColor ();
 		this.getContext ().font = item.getFont ();
@@ -97,6 +108,11 @@ class Renderer {
 		);
 	}
 	
+	/**
+	 * Draws a texture renderable.
+	 * 
+	 * @param  {Renderable} item renderable data
+	 */
 	drawItemTexture (item) {
 		this.getContext ().drawImage (
 			item.getImage (),
