@@ -16,6 +16,13 @@ class Renderer {
 		 */
 		this.context;
 		
+		/**
+		 * @var {Int} height height of canvas
+		 * @var {Int} width  width of canvas
+		 */
+		this.height;
+		this.width;
+		
 		this.setContext ($canvas);
 		
 		// Start the frame-locked loop
@@ -25,7 +32,15 @@ class Renderer {
 	/**
 	* Draw the current adventure.
 	*/
-	draw () {}
+	draw () {
+		this.getContext ().fillStyle = 'green';
+		this.getContext ().fillRect(
+			0,
+			0,
+			this.getWidth (),
+			this.getHeight ()
+		);
+	}
 	
 	/**
 	 * Gets the canvas context.
@@ -34,6 +49,24 @@ class Renderer {
 	 */
 	getContext () {
 		return this.context;
+	}
+	
+	/**
+	 * Gets the canvas height.
+	 * 
+	 * @return {Int} canvas height
+	 */
+	getHeight () {
+		return this.getContext ().canvas.height;
+	}
+	
+	/**
+	 * Gets the canvas width.
+	 * 
+	 * @return {Int} canvas width
+	 */
+	getWidth () {
+		return this.getContext ().canvas.width;
 	}
 	
 	/**
