@@ -25,6 +25,11 @@ class Game {
 			this.frameLockedLoop.bind (this)
 		);
 		
+		// @TODO make seperate game object
+		this.fps = 0;
+		this.fpsDelta = 0;
+		this.lastIteration = Date.now ();
+		
 		// Start the game loop
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}
@@ -33,6 +38,7 @@ class Game {
 	 * Game loop locked to a predetermined max update frequency.
 	 */
 	frameLockedLoop () {
+		// @TODO this junk should go into a scene manager or something
 		this.renderer.appendQueue (
 			new RenderableColor (
 				"blue",
@@ -40,6 +46,15 @@ class Game {
 				{x: 0, y: 0}
 			)
 		);
+		
+		this.renderer.appendQueue (
+			new RenderableText (
+				"red",
+				"20px Arial",
+				{x: this.renderer.getWidth () - 100, y: 100},
+				"FPS: " + this.fps
+			)
+		)
 		
 		this.renderer.draw ();
 	}
@@ -61,7 +76,13 @@ class Game {
 		// let mPos = this.input.getMouse ().getPosition ();
 		// console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
-		
+		// Terrible FPS meter with janky properties
+		// @TODO remove this later one
+		let currentIteration = Date.now ();
+		let localDelta = currentIteration - this.lastIteration;
+		this.fpsDelta += (localDelta - this.fpsDelta) / 20;
+		this.lastIteration = currentIteration;
+		this.fps = (1000 / this.fpsDelta).toFixed(0);
 		
 		// get input
 		// process stuff
