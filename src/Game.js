@@ -25,14 +25,13 @@ class Game {
 			this.frameLockedLoop.bind (this)
 		);
 		
-		// Probably start the a seperate renderer class which contains the render
-		// loop frame locked to whatever. Split logic and render loops? Does that
-		// make any sense?
-		
 		// Start the game loop
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}
 	
+	/**
+	 * Game loop locked to a predetermined max update frequency.
+	 */
 	frameLockedLoop () {
 		this.renderer.appendQueue (
 			new RenderableColor (
