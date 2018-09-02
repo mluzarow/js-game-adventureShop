@@ -25,6 +25,11 @@ class Game {
 			this.frameLockedLoop.bind (this)
 		);
 		
+		/**
+		 * @type {SceneManager} game scene manager managing game objects
+		 */
+		this.scenes = new SceneManager ();
+		
 		// @TODO make seperate game object
 		this.fps = 0;
 		this.fpsDelta = 0;
