@@ -167,13 +167,4 @@ class Renderer {
 	setContext ($canvas) {
 		this.context = $canvas.getContext ("2d");
 	}
-	
-	/**
-	* Update the adventure.
-	*/
-	update () {}
-	/**
-	* Control the adventure.
-	*/
-	loop () {}
 }
