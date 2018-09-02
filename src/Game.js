@@ -19,7 +19,11 @@ class Game {
 		/**
 		 * @type {Renderer} game renderer for output graphics through canvas
 		 */
-		this.renderer = new Renderer (this.$canvas, 50, this.frameLockedLoop.bind (this));
+		this.renderer = new Renderer (
+			this.$canvas,
+			60,
+			this.frameLockedLoop.bind (this)
+		);
 		
 		// Probably start the a seperate renderer class which contains the render
 		// loop frame locked to whatever. Split logic and render loops? Does that
