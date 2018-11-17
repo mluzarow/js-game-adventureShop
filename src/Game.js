@@ -7,6 +7,11 @@ class Game {
 	 */
 	initialize () {
 		/**
+		 * @type {Number} maximum frames per second to cap rendering at
+		 */
+		this.FPS_MAX = 60;
+		
+		/**
 		 * @type {Element} canvas element
 		 */
 		this.$canvas = document.getElementById ("game");
@@ -21,14 +26,23 @@ class Game {
 		 */
 		this.renderer = new Renderer (
 			this.$canvas,
-			60,
+			this.FPS_MAX,
 			this.frameLockedLoop.bind (this)
 		);
 		
-		// @TODO make seperate game object
-		this.fps = 0;
-		this.fpsDelta = 0;
-		this.lastIteration = Date.now ();
+		/**
+		 * @type {SceneManager} game scene manager managing game objects
+		 */
+		this.scenes = new SceneManager (
+			this.renderer.getWidth (),
+			this.renderer.getHeight ()
+		);
+		
+		// Load the testing scene
+		this.scenes.loadScene (new TestScene (
+			this.renderer.getWidth (),
+			this.renderer.getHeight ()
+		));
 		
 		// Start the game loop
 		requestAnimationFrame (this.gameLoop.bind (this));
@@ -38,25 +52,11 @@ class Game {
 	 * Game loop locked to a predetermined max update frequency.
 	 */
 	frameLockedLoop () {
-		// @TODO this junk should go into a scene manager or something
-		this.renderer.appendQueue (
-			new RenderableColor (
-				"blue",
-				{x: this.renderer.getWidth (), y: this.renderer.getHeight ()},
-				{x: 0, y: 0}
-			)
+		this.scenes.getCurrentScene ().updateRenderables ();
+		
+		this.renderer.draw (
+			this.scenes.getCurrentScene ().getRenderables ()
 		);
-		
-		this.renderer.appendQueue (
-			new RenderableText (
-				"red",
-				"20px Arial",
-				{x: this.renderer.getWidth () - 100, y: 100},
-				"FPS: " + this.fps
-			)
-		)
-		
-		this.renderer.draw ();
 	}
 	
 	/**
@@ -76,17 +76,7 @@ class Game {
 		// let mPos = this.input.getMouse ().getPosition ();
 		// console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
-		// Terrible FPS meter with janky properties
-		// @TODO remove this later one
-		let currentIteration = Date.now ();
-		let localDelta = currentIteration - this.lastIteration;
-		this.fpsDelta += (localDelta - this.fpsDelta) / 20;
-		this.lastIteration = currentIteration;
-		this.fps = (1000 / this.fpsDelta).toFixed(0);
-		
-		// get input
-		// process stuff
-		// render stuff
+		this.scenes.getCurrentScene ().updateLogic ();
 		
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}
