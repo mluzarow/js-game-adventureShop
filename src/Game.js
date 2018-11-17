@@ -9,7 +9,7 @@ class Game {
 		/**
 		 * @type {Number} maximum frames per second to cap rendering at
 		 */
-		this.FSP_MAX = 60;
+		this.FPS_MAX = 60;
 		
 		/**
 		 * @type {Element} canvas element
@@ -26,7 +26,7 @@ class Game {
 		 */
 		this.renderer = new Renderer (
 			this.$canvas,
-			this.FSP_MAX,
+			this.FPS_MAX,
 			this.frameLockedLoop.bind (this)
 		);
 		
