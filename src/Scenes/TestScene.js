@@ -1,13 +1,16 @@
 class TestScene extends Scene {
-	constructor () {
-		super ();
+	constructor (x, y) {
+		super (x, y);
 		
 		this.fps = 0;
 		this.fpsDelta = 0;
 		this.lastIteration = Date.now ();
 	}
 	
-	update () {
+	/**
+	 * Updates the logic of the scene.
+	 */
+	updateLogic () {
 		let currentIteration = Date.now ();
 		let localDelta = currentIteration - this.lastIteration;
 		this.fpsDelta += (localDelta - this.fpsDelta) / 20;
@@ -15,21 +18,24 @@ class TestScene extends Scene {
 		this.fps = (1000 / this.fpsDelta).toFixed (0);
 	}
 	
-	getRenderables () {
+	/**
+	 * Updates the data bound to the renderable items.
+	 */
+	updateRenderables () {
 		let background = new RenderableColor (
 			"blue",
-			{x: this.renderer.getWidth (), y: this.renderer.getHeight ()},
+			{x: this.width, y: this.height},
 			{x: 0, y: 0}
 		);
 		
 		let fpsCounter = new RenderableText (
 			"red",
 			"20px Arial",
-			{x: this.renderer.getWidth () - 100, y: 100},
+			{x: this.width - 100, y: 100},
 			"FPS: " + this.fps
 		);
 		
-		return [
+		this.renderables = [
 			background,
 			fpsCounter
 		];

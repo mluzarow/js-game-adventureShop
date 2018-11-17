@@ -7,6 +7,11 @@ class Game {
 	 */
 	initialize () {
 		/**
+		 * @type {Number} maximum frames per second to cap rendering at
+		 */
+		this.FSP_MAX = 60;
+		
+		/**
 		 * @type {Element} canvas element
 		 */
 		this.$canvas = document.getElementById ("game");
@@ -21,7 +26,7 @@ class Game {
 		 */
 		this.renderer = new Renderer (
 			this.$canvas,
-			60,
+			this.FSP_MAX,
 			this.frameLockedLoop.bind (this)
 		);
 		
@@ -33,6 +38,12 @@ class Game {
 			this.renderer.getHeight ()
 		);
 		
+		// Load the testing scene
+		this.scenes.loadScene (new TestScene (
+			this.renderer.getWidth (),
+			this.renderer.getHeight ()
+		));
+		
 		// Start the game loop
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}
@@ -41,9 +52,11 @@ class Game {
 	 * Game loop locked to a predetermined max update frequency.
 	 */
 	frameLockedLoop () {
+		this.scenes.getCurrentScene ().updateRenderables ();
 		
-		
-		this.renderer.draw ();
+		this.renderer.draw (
+			this.scenes.getCurrentScene ().getRenderables ()
+		);
 	}
 	
 	/**
@@ -70,6 +83,8 @@ class Game {
 		// get input
 		// process stuff
 		// render stuff
+		
+		this.scenes.getCurrentScene ().updateLogic ();
 		
 		requestAnimationFrame (this.gameLoop.bind (this));
 	}

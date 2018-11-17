@@ -24,11 +24,6 @@ class Renderer {
 		this.height;
 		this.width;
 		
-		/**
-		 * @type {Array} queue of renderables to be rendered next frame
-		 */
-		this.queue = [];
-		
 		this.setContext ($canvas);
 		
 		// Start the frame-locked loop
@@ -36,32 +31,14 @@ class Renderer {
 	}
 	
 	/**
-	 * Appends a new renderable to the end of the queue for next frame.
-	 * 
-	 *  @param {Renderable} item a renderable item
-	 */
-	appendQueue (item) {
-		this.queue.push (item);
-	}
-	
-	/**
-	 * Clears the current frames renderable queue.
-	 */
-	clearQueue () {
-		this.queue = [];
-	}
-	
-	/**
 	* Draw the current adventure.
+	* 
+	* @param {Array} queue list of renderables to draw this cycle
 	*/
-	draw () {
-		let queue = this.getQueue ();
-		
+	draw (queue) {
 		for (let i = 0; i < queue.length; i++) {
 			this.drawItem (queue[i]);
 		}
-		
-		this.clearQueue ();
 	}
 	
 	/**
@@ -80,7 +57,7 @@ class Renderer {
 	/**
 	 * Draws a color renderable.
 	 * 
-	 * @param  {Renderable} item renderable data
+	 * @param {Renderable} item renderable data
 	 */
 	drawItemColor (item) {
 		this.getContext ().fillStyle = item.getColor ();
@@ -96,7 +73,7 @@ class Renderer {
 	/**
 	 * Draws a text renderable.
 	 * 
-	 * @param  {Renderable} item renderable data
+	 * @param {Renderable} item renderable data
 	 */
 	drawItemText (item) {
 		this.getContext ().fillStyle = item.getColor ();
@@ -111,7 +88,7 @@ class Renderer {
 	/**
 	 * Draws a texture renderable.
 	 * 
-	 * @param  {Renderable} item renderable data
+	 * @param {Renderable} item renderable data
 	 */
 	drawItemTexture (item) {
 		this.getContext ().drawImage (
@@ -139,15 +116,6 @@ class Renderer {
 	 */
 	getHeight () {
 		return this.getContext ().canvas.height;
-	}
-	
-	/**
-	 * Gets the frame's render queue.
-	 * 
-	 * @return {Array} renderable queue
-	 */
-	getQueue () {
-		return this.queue;
 	}
 	
 	/**
