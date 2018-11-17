@@ -76,14 +76,6 @@ class Game {
 		// let mPos = this.input.getMouse ().getPosition ();
 		// console.debug ("Mouse Position x: %d y: %d", mPos.x, mPos.y);
 		
-		// Terrible FPS meter with janky properties
-		// @TODO remove this later one
-		
-		
-		// get input
-		// process stuff
-		// render stuff
-		
 		this.scenes.getCurrentScene ().updateLogic ();
 		
 		requestAnimationFrame (this.gameLoop.bind (this));
