@@ -1,6 +1,15 @@
+/**
+ * A Scene for testing variable game elements.
+ */
 class TestScene extends Scene {
-	constructor (x, y) {
-		super (x, y);
+	/**
+	 * Constructor for scene TestScene.
+	 * 
+	 * @param {Int} canvasWidth  canvas width in pixels
+	 * @param {Int} canvasHeight canvas height in pixels
+	 */
+	constructor (canvasWidth, canvasHeight) {
+		super (canvasWidth, canvasHeight);
 		
 		this.fps = 0;
 		this.fpsDelta = 0;
