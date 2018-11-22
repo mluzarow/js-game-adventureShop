@@ -44,19 +44,15 @@ class SceneManager {
 	/**
 	 * Loads all available game scenes into memory.
 	 * 
-	 * @param {Int}          canvasWidth  canvas width in pixels
-	 * @param {Int}          canvasHeight canvas height in pixels
-	 * @param {InputManager} input        instance of the input manager
+	 * @param {Int}          width  canvas width in pixels
+	 * @param {Int}          height canvas height in pixels
+	 * @param {InputManager} input  instance of the input manager
 	 * 
 	 * @return {Object} dictionary of all scenes in the game
 	 */
-	_initializeScenes (canvasWidth, canvasHeight, input) {
+	_initializeScenes (width, height, input) {
 		return {
-			testScene: new TestScene (
-				canvasWidth,
-				canvasHeight,
-				input
-			)
+			testScene: new TestScene (width, height, input)
 		}
 	}
 }
