@@ -9,7 +9,7 @@ class Scene {
 	 * @param {Int} canvasHeight canvas height in pixels
 	 */
 	constructor (canvasWidth, canvasHeight) {
-		this.width = canvasWidth;
-		this.height = canvasHeight;
+		this._width = canvasWidth;
+		this._height = canvasHeight;
 	}
 }

@@ -45,10 +45,8 @@ class Game {
 	 * Game loop locked to a predetermined max update frequency.
 	 */
 	frameLockedLoop () {
-		this.scenes.getCurrentScene ().updateRenderables ();
-		
 		this.renderer.draw (
-			this.scenes.getCurrentScene ().getRenderables ()
+			this.scenes.getCurrentScene ().updateRenderables ()
 		);
 	}
 	

@@ -46,42 +46,33 @@ class TestScene extends Scene {
 	
 	/**
 	 * Updates the data bound to the renderable items.
+	 * 
+	 * @return {Array} list of renderable items
 	 */
 	updateRenderables () {
-		this.renderables = [];
-		
-		this.renderables.push(
+		return [
 			new RenderableColor (
 				"#7e7e7e",
-				{x: this.width, y: this.height},
+				{x: this._width, y: this._height},
 				{x: 0, y: 0}
-			)
-		);
-		
-		this.renderables.push(
+			),
 			new RenderableText (
 				"red",
 				"20px Arial",
-				{x: this.width - 100, y: 100},
+				{x: this._width - 100, y: 100},
 				"FPS: " + this.fps
-			)
-		);
-		
-		this.renderables.push(
+			),
 			new RenderableColor (
 				'#000',
-				{x: this.width - 200, y: this.height - 550},
+				{x: this._width - 200, y: this._height - 550},
 				{x: 100, y: 500}
-			)
-		);
-		
-		this.renderables.push(
+			),
 			new RenderableText (
 				'#fff',
 				"14px Arial",
 				{x: 120, y: 520},
 				this.textState
 			)
-		);
+		];
 	}
 }
