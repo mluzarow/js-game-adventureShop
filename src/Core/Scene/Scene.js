@@ -18,6 +18,12 @@ class Scene {
 		this._components = {};
 	}
 	
+	/**
+	 * Adds a component to list of scene game components.
+	 * 
+	 * @param {String} name   name of component
+	 * @param {Object} object component class
+	 */
 	_addComponent (name, object) {
 		this._components[name] = object;
 	}
