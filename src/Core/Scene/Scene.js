@@ -11,5 +11,14 @@ class Scene {
 	constructor (canvasWidth, canvasHeight) {
 		this._width = canvasWidth;
 		this._height = canvasHeight;
+		
+		/**
+		 * @type {Object} disctionary of game components for this scene
+		 */
+		this._components = {};
+	}
+	
+	_addComponent (name, object) {
+		this._components[name] = object;
 	}
 }

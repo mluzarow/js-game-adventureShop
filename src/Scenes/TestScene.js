@@ -11,9 +11,15 @@ class TestScene extends Scene {
 	constructor (canvasWidth, canvasHeight) {
 		super (canvasWidth, canvasHeight);
 		
-		this.fps = 0;
-		this.fpsDelta = 0;
-		this.lastIteration = Date.now ();
+		this._addComponent (
+			"fpsmeter",
+			new FPSMeter (
+				{x: this._width - 100, y: 100},
+				"red",
+				"Arial",
+				"20px"
+			)
+		);
 		
 		this.exampleText = "This is some example text that will be written.";
 		this.textState = "";
@@ -24,11 +30,7 @@ class TestScene extends Scene {
 	 * Updates the logic of the scene.
 	 */
 	updateLogic () {
-		let currentIteration = Date.now ();
-		let localDelta = currentIteration - this.lastIteration;
-		this.fpsDelta += (localDelta - this.fpsDelta) / 20;
-		this.lastIteration = currentIteration;
-		this.fps = (1000 / this.fpsDelta).toFixed (0);
+		this._components["fpsmeter"].updateLogic ();
 		
 		if (
 			this.textBuff < 1 &&
@@ -56,12 +58,7 @@ class TestScene extends Scene {
 				{x: this._width, y: this._height},
 				{x: 0, y: 0}
 			),
-			new RenderableText (
-				"red",
-				"20px Arial",
-				{x: this._width - 100, y: 100},
-				"FPS: " + this.fps
-			),
+			this._components["fpsmeter"].updateRenderables ()[0],
 			new RenderableColor (
 				'#000',
 				{x: this._width - 200, y: this._height - 550},
