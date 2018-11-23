@@ -2,24 +2,29 @@
  * Parent class from which all scenes inherit.
  */
 class Scene {
-	constructor (x, y) {
-		this.width = x;
-		this.height = y;
-		this.gameObjects = {};
+	/**
+	 * Constructor for scene TestScene.
+	 * 
+	 * @param {Int} canvasWidth  canvas width in pixels
+	 * @param {Int} canvasHeight canvas height in pixels
+	 */
+	constructor (canvasWidth, canvasHeight) {
+		this._width = canvasWidth;
+		this._height = canvasHeight;
 		
-		this.renderables = [];
-	}
-	
-	createGameObject (name, object) {
-		this.gameObjects[name] = object;
+		/**
+		 * @type {Object} disctionary of game components for this scene
+		 */
+		this._components = {};
 	}
 	
 	/**
-	 * Gets a list of renderable items ready to be drawn.
+	 * Adds a component to list of scene game components.
 	 * 
-	 * @return {Array} list of renderable items
+	 * @param {String} name   name of component
+	 * @param {Object} object component class
 	 */
-	getRenderables () {
-		return this.renderables;
+	_addComponent (name, object) {
+		this._components[name] = object;
 	}
 }
