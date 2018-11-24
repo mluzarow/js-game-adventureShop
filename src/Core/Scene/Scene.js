@@ -5,12 +5,14 @@ class Scene {
 	/**
 	 * Constructor for scene TestScene.
 	 * 
-	 * @param {Int} canvasWidth  canvas width in pixels
-	 * @param {Int} canvasHeight canvas height in pixels
+	 * @param {Int}          canvasWidth  canvas width in pixels
+	 * @param {Int}          canvasHeight canvas height in pixels
+	 * @param {InputManager} input        instance of the input manager
 	 */
-	constructor (canvasWidth, canvasHeight) {
+	constructor (canvasWidth, canvasHeight, input) {
 		this._width = canvasWidth;
 		this._height = canvasHeight;
+		this._input = input;
 		
 		/**
 		 * @type {Object} disctionary of game components for this scene
