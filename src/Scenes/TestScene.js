@@ -5,11 +5,12 @@ class TestScene extends Scene {
 	/**
 	 * Constructor for scene TestScene.
 	 * 
-	 * @param {Int} canvasWidth  canvas width in pixels
-	 * @param {Int} canvasHeight canvas height in pixels
+	 * @param {Int}          canvasWidth  canvas width in pixels
+	 * @param {Int}          canvasHeight canvas height in pixels
+	 * @param {InputManager} input        instance of the input manager
 	 */
-	constructor (canvasWidth, canvasHeight) {
-		super (canvasWidth, canvasHeight);
+	constructor (canvasWidth, canvasHeight, input) {
+		super (canvasWidth, canvasHeight, input);
 		
 		this._addComponent (
 			"fpsmeter",
@@ -21,6 +22,16 @@ class TestScene extends Scene {
 			)
 		);
 		
+		this._addComponent (
+			'button',
+			new Button (
+				function () { console.log ("clicked!"); },
+				this._input,
+				{x: 40, y: 40},
+				"BUTTON!"
+			)
+		)
+		
 		this.exampleText = "This is some example text that will be written.";
 		this.textState = "";
 		this.textBuff = 3;
@@ -31,6 +42,7 @@ class TestScene extends Scene {
 	 */
 	updateLogic () {
 		this._components["fpsmeter"].updateLogic ();
+		this._components['button'].updateLogic ();
 		
 		if (
 			this.textBuff < 1 &&
@@ -52,13 +64,14 @@ class TestScene extends Scene {
 	 * @return {Array} list of renderable items
 	 */
 	updateRenderables () {
-		return [
+		return [].concat (
 			new RenderableColor (
 				"#7e7e7e",
 				{x: this._width, y: this._height},
 				{x: 0, y: 0}
 			),
-			this._components["fpsmeter"].updateRenderables ()[0],
+			this._components["fpsmeter"].updateRenderables (),
+			this._components['button'].updateRenderables (),
 			new RenderableColor (
 				'#000',
 				{x: this._width - 200, y: this._height - 550},
@@ -70,6 +83,6 @@ class TestScene extends Scene {
 				{x: 120, y: 520},
 				this.textState
 			)
-		];
+		);
 	}
 }
