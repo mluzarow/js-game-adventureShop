@@ -44,9 +44,10 @@ class SceneManager {
 	/**
 	 * Loads all available game scenes into memory.
 	 * 
-	 * @param {Int}          width  canvas width in pixels
-	 * @param {Int}          height canvas height in pixels
-	 * @param {InputManager} input  instance of the input manager
+	 * @param {Int}          width   canvas width in pixels
+	 * @param {Int}          height  canvas height in pixels
+	 * @param {Context}      context canvas context
+	 * @param {InputManager} input   instance of the input manager
 	 * 
 	 * @return {Object} dictionary of all scenes in the game
 	 */
