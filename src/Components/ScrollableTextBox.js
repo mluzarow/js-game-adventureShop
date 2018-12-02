@@ -9,7 +9,7 @@ class ScrollableTextBox {
 	 * @param {String}       text       text that will be printed via the text box
 	 * @param {Int}          printSpeed number of frames between each charater printed
 	 */
-	constructor (input, text, printSpeed = 3) {
+	constructor (input, text, printSpeed = 2) {
 		this._input = input;
 		this._text = text;
 		this._printSpeed = printSpeed;
@@ -49,12 +49,38 @@ class ScrollableTextBox {
 		for (let i = 0; i < this._maxLines; i++) {
 			this._activeText.push ('');
 		}
+		
+		// Create the button
+		this._moreButton = new Button (
+			function () {
+				this._flagShowContinueBtn = false;
+				this._flagContinue = true;
+			}.bind (this),
+			this._input,
+			{
+				x: this._boxOrigin.x + this._boxSize.x - 100,
+				y: this._boxOrigin.y + this._boxSize.y - 40
+			},
+			">>"
+		)
+		
+		this._flagComplete = false;
+		this._flagShowContinueBtn = false;
+		this._flagContinue = false;
 	}
 	
 	/**
 	 * Updates the logic of the game component.
 	 */
 	updateLogic () {
+		if (this._flagComplete === true) {
+			return;
+		}
+		
+		if (this._flagShowContinueBtn === true) {
+			this._moreButton.updateLogic ();
+		}
+		
 		if (--this._activeTimer < 0) {
 			this._activeTimer = 0;
 		}
@@ -66,18 +92,28 @@ class ScrollableTextBox {
 		if (
 			this._activeText[this._activeLine].length >= this._chunkedText[this._activeBlock][this._activeLine].length
 		) {
-			if (++this._activeLine >= this._chunkedText[this._activeBlock].length) {
-				if (++this._activeBlock >= this._chunkedText.length) {
+			if (this._activeLine + 1 >= this._chunkedText[this._activeBlock].length) {
+				if (this._activeBlock + 1 >= this._chunkedText.length) {
+					this._flagComplete = true;
 					return;
-				} else {
-					this._activeChar = 0;
-					this._activeLine = 0;
-					
-					for (let i = 0; i < this._activeText.length; i++) {
-						this._activeText[i] = '';
-					}
+				}
+				
+				if (this._flagContinue === false) {
+					this._flagShowContinueBtn = true;
+					return;
+				}
+				
+				this._flagContinue = false;
+				
+				this._activeChar = 0;
+				this._activeLine = 0;
+				this._activeBlock++;
+				
+				for (let i = 0; i < this._activeText.length; i++) {
+					this._activeText[i] = '';
 				}
 			} else {
+				this._activeLine++;
 				this._activeChar = 0;
 			}
 		}
@@ -120,6 +156,10 @@ class ScrollableTextBox {
 			);
 		}
 		
+		if (this._flagShowContinueBtn === true) {
+			renderables = renderables.concat (this._moreButton.updateRenderables ());
+		}
+		
 		return renderables;
 	}
 	
@@ -153,7 +193,9 @@ class ScrollableTextBox {
 			let lineLength = virtualContext.measureText (currentLine).width;
 			
 			if (lineLength >= realWidth) {
+				// Characters beyond boundary; wrap text to new line
 				if (renderTextItem.length >= this._maxLines) {
+					// Ran out of lines; add to new textbox
 					renderText.push (renderTextItem);
 					renderTextItem = [];
 				}
@@ -161,10 +203,12 @@ class ScrollableTextBox {
 				renderTextItem.push (testLine);
 				testLine = textWords[i];
 			} else {
+				// Add 1 character
 				testLine = currentLine;
 			}
 		}
 		
+		// Check for any leftovers
 		if (testLine.length > 0) {
 			if (renderTextItem.length >= this._maxLines) {
 				renderText.push (renderTextItem);
