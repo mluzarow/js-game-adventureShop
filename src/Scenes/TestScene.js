@@ -45,9 +45,7 @@ class TestScene extends Scene {
 	 * Updates the logic of the scene.
 	 */
 	updateLogic () {
-		this._components["fpsmeter"].updateLogic ();
-		this._components['button'].updateLogic ();
-		this._components['textbox'].updateLogic ();
+		Object.values (this._components).forEach (c => c.updateLogic());
 	}
 	
 	/**
@@ -56,15 +54,12 @@ class TestScene extends Scene {
 	 * @return {Array} list of renderable items
 	 */
 	updateRenderables () {
-		return [].concat (
+		return [
 			new RenderableColor (
 				"#7e7e7e",
 				{x: this._width, y: this._height},
 				{x: 0, y: 0}
-			),
-			this._components["fpsmeter"].updateRenderables (),
-			this._components['button'].updateRenderables (),
-			this._components['textbox'].updateRenderables ()
-		);
+			)
+		].concat(... Object.values (this._components).map (c => c.updateRenderables ()));
 	}
 }
